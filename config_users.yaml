@@ -1,0 +1,22 @@
+- name: john
+  description: The description john
+  tags:
+  - name: john
+  - project: x
+  permissions:
+  - effect: Allow
+    actions:
+    - "ec2:Describe*"
+    resources:
+    - "*"
+- name: jim
+  description: The description jim
+  tags:
+  - name: jim
+  - project: banana
+  permissions:
+  - effect: Allow
+    actions:
+    - "ec2:Describe*"
+    resources:
+    - "*"

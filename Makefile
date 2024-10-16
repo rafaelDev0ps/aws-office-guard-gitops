@@ -11,8 +11,15 @@ format:
 	@echo "Formating Terraform..."
 	cd terraform && terraform fmt -check
 
+# Create users.tf file
+update_users: 
+	@echo "Generating users Terraform resources..."
+	cd go \
+		&& go mod tidy \
+		&& go run main.go 
+
 # Initialize Terraform
-init:
+init: update_users
 	@echo "Initializing Terraform..."
 	@./init_backend.sh
 
@@ -24,12 +31,12 @@ plan: init
 # Apply Terraform changes
 apply: init
 	@echo "Applying Terraform changes..."
-	cd terraform && terraform apply
+	cd terraform && terraform apply -auto-approve
 
 # Destroy Terraform-managed infrastructure
 destroy: init
 	@echo "Destroying Terraform-managed infrastructure..."
-	cd terraform && terraform destroy
+	cd terraform && terraform destroy -auto-approve
 
 # Clean up temporary files
 clean:
