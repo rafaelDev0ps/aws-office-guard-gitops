@@ -27,13 +27,9 @@ jobs:
       - name: Display Go version
         run: go version
 
-      - name: Install dependencies
-        run: |
-          cd go && go get .
-
       - name: Run script
         run: |
-          cd go && go run main.go
+          make update_resources
       
       - name: Commit and push if changed
         run: |
