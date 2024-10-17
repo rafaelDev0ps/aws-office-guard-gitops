@@ -1,0 +1,39 @@
+# User {{ .Name }}
+
+resource "aws_iam_user" "{{ .Name }}_user" {
+  name = "{{ .Name }}"
+  tags = { 
+    {{- range .Tags }}
+    {{- range $key, $value := . }} 
+    {{ $key }} = "{{ $value }}", 
+    {{- end }}
+    {{- end }}
+  }
+}
+
+data "aws_iam_policy_document" "{{ .Name }}_policy" {
+  {{- range .Permissions }} 
+  statement {
+    effect    = "{{ .Effect }}"
+    actions   = [
+    {{- range .Actions }} 
+      "{{ . }}",
+    {{- end }}
+    ]
+    resources = [
+    {{- range .Resources }} 
+      "{{ . }}",
+    {{- end }}
+    ]
+  }
+  {{- end }}
+}
+
+resource "aws_iam_user_policy" "{{ .Name }}_user_policy" {
+  name   = "{{ .Name }}-policy"
+  user   = aws_iam_user.{{ .Name }}_user.name
+  policy = data.aws_iam_policy_document.{{ .Name }}_policy.json
+}
+
+###################################################
+###################################################
