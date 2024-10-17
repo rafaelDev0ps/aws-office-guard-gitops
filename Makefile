@@ -12,8 +12,8 @@ format:
 	cd terraform && terraform fmt -check
 
 # Create Terraform resources
-update_users: 
-	@echo "Generating users Terraform resources..."
+update_resources: 
+	@echo "Generating Terraform resources..."
 	cd go \
 		&& go get . \
 		&& go mod tidy \
