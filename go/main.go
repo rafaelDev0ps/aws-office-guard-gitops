@@ -26,7 +26,7 @@ func getUsers() *[]User {
 
 	yamlFile, err := os.ReadFile("../config_users.yaml")
 	if err != nil {
-		log.Printf("yamlFile.Get err   #%v ", err)
+		log.Printf("yamlFile.Get err #%v ", err)
 	}
 
 	err = yaml.Unmarshal(yamlFile, listUsers)
@@ -47,7 +47,7 @@ func main() {
 	for _, user := range *users {
 		err := tmpl.Execute(usersTFFile, user)
 		if err != nil {
-			log.Println("executing template:", err)
+			log.Println("Executing template:", err)
 		}
 	}
 

@@ -1,0 +1,43 @@
+name: 'Build Terraform resources'
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  build-terraform-resources:
+    runs-on: ubuntu-latest
+    environment: production
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Setup Go 1.21.4
+        uses: actions/setup-go@v5
+        with:
+          go-version: 1.21.4
+
+      - name: Display Go version
+        run: go version
+
+      - name: Install dependencies
+        run: |
+          cd go && go get .
+
+      - name: Run script
+        run: |
+          cd go && go run main.go
+      
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name 'GitHub Actions Bot'
+          git config --global user.email 'actions@github.com'
+          git add .
+          git diff --staged --quiet || (git commit -m "Add generated file" && git push)
