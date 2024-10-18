@@ -37,7 +37,7 @@ apply: init
 # Destroy Terraform-managed infrastructure
 destroy: init
 	@echo "Destroying Terraform-managed infrastructure..."
-	cd terraform && terraform destroy -auto-approve
+	cd terraform && terraform destroy -auto-approve && rm users.tf
 
 # Clean up temporary files
 clean:
