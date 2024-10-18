@@ -11,6 +11,7 @@ type Permissions struct {
 	Effect    string   `yaml:"effect"`
 	Actions   []string `yaml:"actions"`
 	Resources []string `yaml:"resources"`
+	Test      string   `yaml:"test"`
 }
 
 type User struct {
