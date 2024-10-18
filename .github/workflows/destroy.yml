@@ -11,7 +11,7 @@ permissions:
   contents: read
 
 jobs:
-  deploy-resources:
+  destroy-resources:
     name: 'Terraform'
     runs-on: ubuntu-latest
     environment: production
