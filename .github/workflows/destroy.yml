@@ -34,7 +34,15 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     - name: Terraform Destroy
-      run: make destroy
+      run: |
+        make destroy
+        git config --global user.name 'GitHub Actions Bot'
+        git config --global user.email 'actions@github.com'
+        git add .
+        git commit -m "Remove terraform resources"
+        git checkout -b remove/terraform-resources
+        git push origin remove/terraform-resources
+        gh pr create --base main --head remove/terraform-resources --title "Remove terraform resources" --body "Remove terraform resources that were destroyed"
       env: 
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
