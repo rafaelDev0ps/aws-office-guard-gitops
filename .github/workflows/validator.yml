@@ -5,7 +5,7 @@ on:
     types: [opened, edited]
 
 jobs:
-  build-terraform-resources:
+  validate-users-config:
     runs-on: ubuntu-latest
     environment: production
 

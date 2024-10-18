@@ -20,3 +20,14 @@
     - "ec2:Describe*"
     resources:
     - "*"
+- name: ana
+  description: The description ana
+  tags:
+  - name: ana
+  - project: bot
+  permissions:
+  - effect: Allow
+    actions:
+    - "ec2:Describe*"
+    resources:
+    - "*"
