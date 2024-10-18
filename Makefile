@@ -11,13 +11,20 @@ format:
 	@echo "Formating Terraform..."
 	cd terraform && terraform fmt -check
 
+check_resources:
+	@echo "Validating resources config..."
+	cd go \
+		&& go get . \
+		&& go mod tidy \
+		&& go run -tags checker checker.go
+
 # Create Terraform resources
 update_resources: 
 	@echo "Generating Terraform resources..."
 	cd go \
 		&& go get . \
 		&& go mod tidy \
-		&& go run main.go 
+		&& go run -tags builder builder.go
 
 # Initialize Terraform
 init:
