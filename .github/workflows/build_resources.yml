@@ -5,6 +5,8 @@ on:
     branches: [ "main" ]
   pull_request:
     types: [opened, edited, synchronize]
+    branches:
+      - "user/*"
 
 jobs:
   build-terraform-resources:
