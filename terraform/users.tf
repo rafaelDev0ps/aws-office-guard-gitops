@@ -58,3 +58,33 @@ resource "aws_iam_user_policy" "jim_user_policy" {
 
 ###################################################
 ###################################################
+# User ana
+
+resource "aws_iam_user" "ana_user" {
+  name = "ana"
+  tags = { 
+    name = "ana", 
+    project = "bot",
+  }
+}
+
+data "aws_iam_policy_document" "ana_policy" { 
+  statement {
+    effect    = "Allow"
+    actions   = [ 
+      "ec2:Describe*",
+    ]
+    resources = [ 
+      "*",
+    ]
+  }
+}
+
+resource "aws_iam_user_policy" "ana_user_policy" {
+  name   = "ana-policy"
+  user   = aws_iam_user.ana_user.name
+  policy = data.aws_iam_policy_document.ana_policy.json
+}
+
+###################################################
+###################################################
