@@ -5,11 +5,12 @@ on:
     branches: [ "main" ]
   pull_request:
     types: [opened, edited, synchronize]
-    branches:
-      - "user/*"
+    branches: ["main"]
 
 jobs:
   build-terraform-resources:
+    if: startsWith(github.head_ref, 'user/')
+    name: 'Build Terraform resources'
     runs-on: ubuntu-latest
     environment: production
     permissions:
